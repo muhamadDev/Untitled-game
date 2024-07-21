@@ -18,9 +18,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         .setDepth(4)
         .setCollideWorldBounds(true)
         .setPushable(false)
-        .setSize(50,120)
-        .setOffset(80, 20)
+        .setSize(50,80)
+        .setOffset(80, 60)
         .setScale(1.3)
+        
+        this.isJumping = false;
         
         this.on('die', (spr) => {
             
@@ -39,6 +41,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.Jump();
         
         this.play("DudeIdle")
+        
+        this.scene.physics.add.collider(this.scene.plateform, this, () => {
+            this.anims.resume();
+        })
     }
     
     Movement() {
@@ -66,16 +72,22 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             
             if (cursorKeys.left.isDown) {
                 this.setVelocityX(-this.speed)
-                this.play("DudeRun")
-                // this.setFlipX(true)
-                this.Flip(true)
+                
+                if (!this.isJumping) {
+                    this.play("DudeRun")
+                    this.Flip(true)
+                }
+                
             }
             
             if (cursorKeys.right.isDown) {
                 this.setVelocityX(this.speed)
-                this.play("DudeRun")
-                // this.setFlipX(false)
-                this.Flip(false)
+                
+                if(!this.isJumping) {
+                    this.play("DudeRun")
+                    this.Flip(false)
+                }
+                
             }
             
             if(cursorKeys.right.isUp && cursorKeys.left.isUp) {
@@ -112,8 +124,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         
         this.JumpButton.on("pointerdown", (pointer) => {
             if(!this.body.touching.down) return;
-            this.setVelocityY(-200)
-            this.play("DudeJump")
+            this.setVelocityY(-300)
+            this.anims.pause();
+            this.isJumping = true;
+            // in line 44 the anims will "resume" when the player touches groud
+        });
+        
+        this.JumpButton.on("pointerup", (pointer) => {
+            this.setVelocityY(0)
+            this.isJumping = false;
         })
         
         this.on('animationcomplete-DudeJump', () => {
@@ -125,11 +144,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         
         if (flip) {
             this.setFlipX(true);
-            this.setOffset(90, 20)
+            this.setOffset(90, 60)
             return 
         } 
         
         this.setFlipX(false);
-        this.setOffset(80, 20)
+        this.setOffset(80, 60)
     }
+    
 }

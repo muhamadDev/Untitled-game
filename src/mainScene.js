@@ -26,7 +26,7 @@ export default class Main extends Phaser.Scene {
         }, this)
         
         this.grid.placeAt(2, 11, this.dude)
-        this.physics.add.collider(this.plateform, this.dude)
+        
     }
     
     update(time, delta) {}
