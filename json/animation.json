@@ -1,0 +1,28 @@
+{
+    "player": [
+        {
+            "key": "DudeIdle",
+            "spriteKey": "DudeIdle",
+            "frameRate": 10,
+            "repeat": -1
+        },
+        {
+            "key": "DudeRun",
+            "spriteKey": "DudeRun",
+            "frameRate": 12,
+            "repeat": -1
+        },
+        {
+            "key": "DudeAttack",
+            "spriteKey": "DudeAttack",
+            "frameRate": 5,
+            "repeat": -1
+        },
+        {
+            "key": "DudeJump",
+            "spriteKey": "DudeJump",
+            "frameRate": 1.5,
+            "repeat": 0
+        }
+    ]
+}

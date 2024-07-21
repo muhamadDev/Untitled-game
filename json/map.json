@@ -1,0 +1,22 @@
+{
+    "foreground": [
+        {
+            "row": 13,
+            "col": 0,
+            "frame": 1,
+            "toCol": 8
+        },
+        {
+            "row": 13,
+            "col": 11,
+            "frame": 1,
+            "toCol": 18
+        },
+        {
+            "row": 13,
+            "col": 21,
+            "frame": 1,
+            "toCol": 29
+        }
+    ]
+}

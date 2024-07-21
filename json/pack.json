@@ -1,0 +1,63 @@
+{
+  "pack": {
+    "files": [
+        {
+            "type": "image",
+            "key": "image",
+            "url": "../url.png"
+        },
+        {
+            "type": "audio",
+            "key": "audio",
+            "url": ["../audio.ogg", "../audio.mp3"]
+        },
+        {
+            "type": "spritesheet",
+            "key": "Tileset",
+            "url": "../assets/envirement/Tileset.png",
+            "frameConfig": { "frameWidth": 32, "frameHeight": 32 }
+        },
+        {
+            "type": "spritesheet",
+            "key": "DudeAttack",
+            "url": "../assets/player/Attack1.png",
+            "frameConfig": { "frameWidth": 231, "frameHeight": 190 }
+        },
+        {
+            "type": "spritesheet",
+            "key": "DudeIdle",
+            "url": "../assets/player/Idle.png",
+            "frameConfig": { "frameWidth": 231, "frameHeight": 190 }
+        },
+        {
+            "type": "spritesheet",
+            "key": "DudeRun",
+            "url": "../assets/player/Run.png",
+            "frameConfig": { "frameWidth": 231, "frameHeight": 190 }
+        },
+        {
+            "type": "spritesheet",
+            "key": "DudeJump",
+            "url": "../assets/player/Jump.png",
+            "frameConfig": { "frameWidth": 231, "frameHeight": 190 }
+        },
+        {
+            "type": "json",
+            "key": "map",
+            "url": "../json/map.json"
+        },
+        {
+            "type": "json",
+            "key": "animation",
+            "url": "../json/animation.json"
+        },
+        {
+            "type": "plugin",
+            "key": "rexvirtualjoystickplugin",
+            "url": "../plugins/rexVirtualJoystick.min.js",
+            "start": true
+        }
+    ]
+    
+  }
+}
