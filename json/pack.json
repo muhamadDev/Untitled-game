@@ -19,27 +19,33 @@
         },
         {
             "type": "spritesheet",
-            "key": "DudeAttack",
+            "key": "DudeAttack1",
             "url": "../assets/player/Attack1.png",
-            "frameConfig": { "frameWidth": 231, "frameHeight": 190 }
+            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
         },
         {
             "type": "spritesheet",
             "key": "DudeIdle",
             "url": "../assets/player/Idle.png",
-            "frameConfig": { "frameWidth": 231, "frameHeight": 190 }
+            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
         },
         {
             "type": "spritesheet",
             "key": "DudeRun",
             "url": "../assets/player/Run.png",
-            "frameConfig": { "frameWidth": 231, "frameHeight": 190 }
+            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
         },
         {
             "type": "spritesheet",
             "key": "DudeJump",
             "url": "../assets/player/Jump.png",
-            "frameConfig": { "frameWidth": 231, "frameHeight": 190 }
+            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
+        },
+        {
+            "type": "spritesheet",
+            "key": "DudeDoublejump",
+            "url": "../assets/player/Doublejump.png",
+            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
         },
         {
             "type": "json",

@@ -57,6 +57,8 @@ export default class Main extends Phaser.Scene {
         }, this)
         
         this.grid.placeAt(2, 8, this.dude)
+        
+        this.physics.add.collider(this.plateform, this.dude)
     }
     
 }

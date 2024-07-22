@@ -19,11 +19,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         .setDepth(4)
         .setCollideWorldBounds(true)
         .setPushable(false)
-        .setSize(50,80)
-        .setOffset(80, 60)
-        .setScale(1.3)
+        .setSize(20,30)
+        .setOffset(3,18)
+        .setScale(2)
         
         this.isJumping = false;
+        this.isMoving = false;
         
         this.on('die', (spr) => {
             
@@ -43,9 +44,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         
         this.play("DudeIdle")
         
-        this.scene.physics.add.collider(this.scene.plateform, this, () => {
-            this.anims.resume();
-        })
     }
     
     Movement() {
@@ -71,9 +69,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             const cursorKeys = this.joyStick.createCursorKeys();
             
             if (cursorKeys.left.isDown) {
-                this.setVelocityX(-this.speed)
+                this.setVelocityX(-this.speed * 0.6)
+                this.isMoving = true;
                 
                 if (!this.isJumping) {
+                    this.setVelocityX(-this.speed)
                     this.play("DudeRun")
                     this.Flip(true)
                 }
@@ -81,9 +81,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             }
             
             if (cursorKeys.right.isDown) {
-                this.setVelocityX(this.speed)
+                this.setVelocityX(this.speed * 0.6)
+                this.isMoving = true;
                 
                 if(!this.isJumping) {
+                    this.setVelocityX(this.speed)
                     this.play("DudeRun")
                     this.Flip(false)
                 }
@@ -93,6 +95,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             if(cursorKeys.right.isUp && cursorKeys.left.isUp) {
                 this.setVelocityX(0)
                 this.play("DudeIdle")
+                this.isMoving = false;
             }
         }
     }
@@ -126,16 +129,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         
         this.JumpButton.on("pointerdown", (pointer) => {
             if(!this.body.touching.down) return;
-            this.setVelocityY(-300)
-            this.anims.pause();
+            this.setVelocityY(-280)
+            this.play("DudeJump")
             this.isJumping = true;
             
-            // in line 44 the anims will "resume" when the player touches groud
         });
         
         this.JumpButton.on("pointerup", (pointer) => {
             this.setVelocityY(0)
-            this.setGravityY(450)
+            this.setGravityY(420)
             this.isJumping = false;
             
             this.scene.time.delayedCall(3000,() => {
@@ -145,7 +147,24 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         })
         
         this.on('animationcomplete-DudeJump', () => {
-            this.play("DudeRun")
+            
+            const whenDudeTouchesGround = () => {
+                
+                if (this.body.touching.down) {
+                    
+                    if (this.isMoving) {
+                        this.play("DudeRun")
+                        return
+                    }
+                    
+                    this.play("DudeIdle");
+                    return
+                }
+                requestAnimationFrame(whenDudeTouchesGround);
+            }
+            
+            whenDudeTouchesGround()
+            
         });
     }
     
@@ -153,12 +172,12 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         
         if (flip) {
             this.setFlipX(true);
-            this.setOffset(90, 60)
+            this.setOffset(24,18)
             return 
         } 
         
         this.setFlipX(false);
-        this.setOffset(80, 60)
+        this.setOffset(3,18)
     }
     
 }
