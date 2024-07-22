@@ -25,6 +25,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         
         this.isJumping = false;
         this.isMoving = false;
+        this.isAttacking = false;
+        this.canAttack = true;
+        this.randomAnimation = 0;
         
         this.on('die', (spr) => {
             
@@ -41,6 +44,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         this.Movement()
         this.Animation()
         this.Jump();
+        this.CreateAttackBtn();
         
         this.play("DudeIdle")
         
@@ -168,6 +172,60 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         });
     }
     
+    CreateAttackBtn() {
+        this.AttackBtn = this.scene.add.circle(1200, 560, 55, 0xcccccc);
+        
+        this.AttackBtn
+        .setInteractive()
+        .setScrollFactor(0)
+        .setDepth(100);
+        
+        this.AttackBtn.on("pointerdown", (pointer) => {
+            if (!this.canAttack) return;
+            
+            this.isAttacking = true;
+            this.canAttack = false
+            
+            if (this.isMoving) {
+                this.play("DudeRunAttack")
+                return
+            }
+            
+            this.randomAnimation = Phaser.Math.Between(1, 3);
+            this.play(`DudeAttack${this.randomAnimation}`)
+        })
+        let dudeIdleFinished = false;
+        
+        for (let i = 1; i < 4; i++) {
+            
+            this.on(`animationcomplete-DudeAttack${i}`, () => {
+                this.play("DudeIdle")
+                
+                this.isAttacking = false;
+                this.canAttack = true;
+                
+                dudeIdleFinished = true; 
+            })
+            
+        }
+        
+        this.AttackBtn.on("pointerup", (pointer) => {
+            
+            this.scene.time.delayedCall(600, () => {
+                
+                if (!dudeIdleFinished) {
+                    this.isAttacking = false;
+                    this.canAttack = true;
+                    this.play("DudeRun")
+                }
+            });
+            
+        })
+        
+        
+        
+    }
+    
     Flip(flip) {
         
         if (flip) {
@@ -181,3 +239,4 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     
 }
+

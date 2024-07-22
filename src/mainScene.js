@@ -11,7 +11,7 @@ export default class Main extends Phaser.Scene {
     }
 
     create() {
-        this.input.addPointer(5);
+        this.input.addPointer(9);
         
         this.grid = new Grid(this, 32 * 1.5, 1280, 720)
         this.grid.show()
@@ -20,11 +20,9 @@ export default class Main extends Phaser.Scene {
         
         this.createPlayer();
         
-        
-        
     }
     
-    update(time, delta) {   }
+    update(time, delta) {}
     
     createMap(scale) {
         const data = this.cache.json.get("map");
@@ -58,7 +56,8 @@ export default class Main extends Phaser.Scene {
         
         this.grid.placeAt(2, 8, this.dude)
         
-        this.physics.add.collider(this.plateform, this.dude)
+        this.physics.add.collider(this.plateform, this.dude);
+        
     }
     
 }

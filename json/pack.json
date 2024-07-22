@@ -3,8 +3,13 @@
     "files": [
         {
             "type": "image",
-            "key": "image",
-            "url": "../url.png"
+            "key": "inventoryContainer",
+            "url": "../assets/ui/inventoryContainer.png"
+        },
+        {
+            "type": "image",
+            "key": "gun1",
+            "url": "../assets/ui/gun1.png"
         },
         {
             "type": "audio",
@@ -25,6 +30,18 @@
         },
         {
             "type": "spritesheet",
+            "key": "DudeAttack2",
+            "url": "../assets/player/Attack2.png",
+            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
+        },
+        {
+            "type": "spritesheet",
+            "key": "DudeAttack3",
+            "url": "../assets/player/Attack3.png",
+            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
+        },
+        {
+            "type": "spritesheet",
             "key": "DudeIdle",
             "url": "../assets/player/Idle.png",
             "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
@@ -37,8 +54,8 @@
         },
         {
             "type": "spritesheet",
-            "key": "DudeJump",
-            "url": "../assets/player/Jump.png",
+            "key": "DudeRunAttack",
+            "url": "../assets/player/RunAttack.png",
             "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
         },
         {
@@ -62,6 +79,12 @@
             "key": "rexvirtualjoystickplugin",
             "url": "../plugins/rexVirtualJoystick.min.js",
             "start": true
+        },
+        {
+            "type": "scenePlugin",
+            "key": "rexuiplugin",
+            "url": "../plugins/rexuiplugin.min.js",
+            "sceneKey": "rexUI"
         }
     ]
     
