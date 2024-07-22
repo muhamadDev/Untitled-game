@@ -11,25 +11,20 @@ export default class Main extends Phaser.Scene {
     }
 
     create() {
+        this.input.addPointer(5);
+        
         this.grid = new Grid(this, 32 * 1.5, 1280, 720)
         this.grid.show()
         
         this.createMap(1.5);
-        this.input.addPointer(5);
+        
+        this.createPlayer();
         
         
-        this.dude = new Player({
-            x: 300,
-            y: 300,
-            key: "DudeIdle",
-            speed: 120
-        }, this)
-        
-        this.grid.placeAt(2, 11, this.dude)
         
     }
     
-    update(time, delta) {}
+    update(time, delta) {   }
     
     createMap(scale) {
         const data = this.cache.json.get("map");
@@ -51,6 +46,17 @@ export default class Main extends Phaser.Scene {
             
         })
         
+    }
+    
+    createPlayer() {
+        this.dude = new Player({
+            x: 300,
+            y: 300,
+            key: "DudeIdle",
+            speed: 120
+        }, this)
+        
+        this.grid.placeAt(2, 8, this.dude)
     }
     
 }

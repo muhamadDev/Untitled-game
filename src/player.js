@@ -11,6 +11,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         
         this.scene.physics.world.setBounds(0, 0, 1280, 720);
         this.scene.cameras.main.setBounds(0, 0, 1280, 720);
+        this.scene.cameras.main.setFollowOffset(-250, 0)
         
         PhaserHealth.AddTo(this, this.health, this.minHealth, this.maxHealth);
         
@@ -51,13 +52,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         
         let graphics = this.scene.add.graphics();
         graphics.fillStyle(0x888888, 1);
-        graphics.fillRoundedRect(-100, -40, 200, 80, 30);
+        graphics.fillRoundedRect(-100, -35, 200, 70, 30);
         graphics.setDepth(100)
         
         this.joyStick = this.scene.plugins.get('rexvirtualjoystickplugin')
         .add(this, {
             x: 200,
-            y: 600,
+            y: 630,
             radius: 100,
             base: graphics,
             thumb: this.scene.add.circle(0, 0, 50, 0xcccccc).setDepth(100),
@@ -65,7 +66,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         })
         .on('update', dumpJoyStickState, this);
         
-        // this.scene.add.circle(0, 0, 80, 0x888888)
         
         function dumpJoyStickState() {
             const cursorKeys = this.joyStick.createCursorKeys();
@@ -115,7 +115,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     }
     
     Jump() {
-        this.JumpButton = this.scene.add.circle(1100, 600, 50, 0xcccccc);
+        // TODO: add kaioty time to player jump: a delay thenplayer can jump
+        
+        this.JumpButton = this.scene.add.circle(1100, 630, 50, 0xcccccc);
         
         this.JumpButton
         .setInteractive()
@@ -127,12 +129,19 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityY(-300)
             this.anims.pause();
             this.isJumping = true;
+            
             // in line 44 the anims will "resume" when the player touches groud
         });
         
         this.JumpButton.on("pointerup", (pointer) => {
             this.setVelocityY(0)
+            this.setGravityY(450)
             this.isJumping = false;
+            
+            this.scene.time.delayedCall(3000,() => {
+                this.setGravityY(300)
+            });
+            
         })
         
         this.on('animationcomplete-DudeJump', () => {
