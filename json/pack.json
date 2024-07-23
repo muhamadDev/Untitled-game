@@ -25,44 +25,38 @@
         {
             "type": "spritesheet",
             "key": "DudeAttack1",
-            "url": "../assets/player/Attack1.png",
-            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
+            "url": "../assets/player/Attack.png",
+            "frameConfig": { "frameWidth": 120, "frameHeight": 80 }
         },
         {
             "type": "spritesheet",
             "key": "DudeAttack2",
             "url": "../assets/player/Attack2.png",
-            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
-        },
-        {
-            "type": "spritesheet",
-            "key": "DudeAttack3",
-            "url": "../assets/player/Attack3.png",
-            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
+            "frameConfig": { "frameWidth": 120, "frameHeight": 80 }
         },
         {
             "type": "spritesheet",
             "key": "DudeIdle",
             "url": "../assets/player/Idle.png",
-            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
+            "frameConfig": { "frameWidth": 120, "frameHeight": 80 }
         },
         {
             "type": "spritesheet",
             "key": "DudeRun",
             "url": "../assets/player/Run.png",
-            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
+            "frameConfig": { "frameWidth": 120, "frameHeight": 80 }
         },
         {
             "type": "spritesheet",
-            "key": "DudeRunAttack",
-            "url": "../assets/player/RunAttack.png",
-            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
+            "key": "DudeJump",
+            "url": "../assets/player/Jump.png",
+            "frameConfig": { "frameWidth": 120, "frameHeight": 80 }
         },
         {
             "type": "spritesheet",
-            "key": "DudeDoublejump",
-            "url": "../assets/player/Doublejump.png",
-            "frameConfig": { "frameWidth": 48, "frameHeight": 48 }
+            "key": "DudeFall",
+            "url": "../assets/player/Fall.png",
+            "frameConfig": { "frameWidth": 120, "frameHeight": 80 }
         },
         {
             "type": "json",

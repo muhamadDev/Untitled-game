@@ -19,11 +19,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         .setDepth(4)
         .setCollideWorldBounds(true)
         .setPushable(false)
-        .setSize(20,30)
-        .setOffset(3,18)
-        .setScale(2)
+        .setSize(22,38)
+        .setOffset(43, 42)
+        .setScale(1.8)
         
-        this.isJumping = false;
         this.isMoving = false;
         this.isAttacking = false;
         this.canAttack = true;
@@ -76,7 +75,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityX(-this.speed * 0.6)
                 this.isMoving = true;
                 
-                if (!this.isJumping) {
+                if (this.body.touching.down) {
                     this.setVelocityX(-this.speed)
                     this.play("DudeRun")
                     this.Flip(true)
@@ -88,7 +87,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityX(this.speed * 0.6)
                 this.isMoving = true;
                 
-                if(!this.isJumping) {
+                if(this.body.touching.down) {
                     this.setVelocityX(this.speed)
                     this.play("DudeRun")
                     this.Flip(false)
@@ -133,25 +132,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         
         this.JumpButton.on("pointerdown", (pointer) => {
             if(!this.body.touching.down) return;
+            
             this.setVelocityY(-280)
+            
             this.play("DudeJump")
-            this.isJumping = true;
             
         });
         
-        this.JumpButton.on("pointerup", (pointer) => {
-            this.setVelocityY(0)
-            this.setGravityY(420)
-            this.isJumping = false;
-            
-            this.scene.time.delayedCall(3000,() => {
-                this.setGravityY(300)
-            });
-            
-        })
-        
         this.on('animationcomplete-DudeJump', () => {
-            
+            this.play("DudeFall")
             const whenDudeTouchesGround = () => {
                 
                 if (this.body.touching.down) {
@@ -180,63 +169,60 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         .setScrollFactor(0)
         .setDepth(100);
         
+        
         this.AttackBtn.on("pointerdown", (pointer) => {
             if (!this.canAttack) return;
             
             this.isAttacking = true;
             this.canAttack = false
             
-            if (this.isMoving) {
-                this.play("DudeRunAttack")
-                return
-            }
+            this.randomAnimation = Phaser.Math.Between(1, 2);
             
-            this.randomAnimation = Phaser.Math.Between(1, 3);
+            
             this.play(`DudeAttack${this.randomAnimation}`)
         })
-        let dudeIdleFinished = false;
         
-        for (let i = 1; i < 4; i++) {
+        this.AttackBtn.on("pointerup", (pointer) => {
             
-            this.on(`animationcomplete-DudeAttack${i}`, () => {
-                this.play("DudeIdle")
+            this.scene.time.delayedCall(1300, () => {
                 
                 this.isAttacking = false;
                 this.canAttack = true;
                 
-                dudeIdleFinished = true; 
-            })
-            
-        }
-        
-        this.AttackBtn.on("pointerup", (pointer) => {
-            
-            this.scene.time.delayedCall(600, () => {
-                
-                if (!dudeIdleFinished) {
-                    this.isAttacking = false;
-                    this.canAttack = true;
-                    this.play("DudeRun")
-                }
             });
             
         })
         
-        
-        
+        for (var i = 1; i < 3; i++) {
+            
+            this.on(`animationcomplete-DudeAttack${i}`, () => {
+                
+                this.scene.time.delayedCall(300, () => {
+                    
+                    if (this.isMoving) {
+                        this.play("DudeRun")
+                        return
+                    }
+                    
+                    this.play("DudeIdle")
+                });
+                
+            });
+        }
     }
     
     Flip(flip) {
         
         if (flip) {
             this.setFlipX(true);
-            this.setOffset(24,18)
+            this.setOffset(53, 42)
             return 
         } 
         
         this.setFlipX(false);
-        this.setOffset(3,18)
+        this.setOffset(43, 42)
     }
+    
     
 }
 

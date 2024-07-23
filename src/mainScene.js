@@ -22,7 +22,8 @@ export default class Main extends Phaser.Scene {
         
     }
     
-    update(time, delta) {}
+    update(time, delta) {
+    }
     
     createMap(scale) {
         const data = this.cache.json.get("map");
@@ -54,7 +55,7 @@ export default class Main extends Phaser.Scene {
             speed: 120
         }, this)
         
-        this.grid.placeAt(2, 8, this.dude)
+        this.grid.placeAt(2, 5, this.dude)
         
         this.physics.add.collider(this.plateform, this.dude);
         
