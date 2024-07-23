@@ -97,8 +97,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
             
             if(cursorKeys.right.isUp && cursorKeys.left.isUp) {
                 this.setVelocityX(0)
-                this.play("DudeIdle")
                 this.isMoving = false;
+                
+                if(!this.body.touching.down) return;
+                
+                this.play("DudeIdle")
             }
         }
     }
